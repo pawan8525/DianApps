@@ -20,7 +20,7 @@ export const ui=handleAction(
                         ...state,
                     };
                 
-                    return newSate.imageList= formattedImage
+                    return newSate.imageList=  Object.keys(formattedImage).map(function(k) { return formattedImage[k] });
 
                 default:
                     return state;

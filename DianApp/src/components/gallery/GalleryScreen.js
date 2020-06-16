@@ -17,6 +17,23 @@ class GalleryScreen extends Component{
         this.props.requestImagesData()
      }
 
+     renderItems=({item})=>{
+        return (
+           
+              <View  style={styles.listContainer}>
+                  {console.log("flatList_item_media",item.media.m)}
+                  <Image source={{uri:item.media.m}} style={styles.imageStyle}/>
+                  <View style={styles.listContentStyle}>
+                    <Text style={styles.titleStyle}>{item.title}</Text>
+                    <Text style={styles.tagsStyle}>{item.tags}</Text>
+
+                  </View>
+            
+              </View>
+          
+          );
+
+     }
 
     render(){
         
@@ -25,23 +42,18 @@ class GalleryScreen extends Component{
         return(
           
             <View style={styles.containerStyle}>
-             <Text>Gallery screen on work inProgress</Text>
-                 </View>
+               
+               <FlatList
+                  data={items}
+                  renderItem={this.renderItems}
+                  keyExtractor={item => item.id}
+                /> 
+                </View>
           
         )
     }
 }
-const styles=StyleSheet.create({
-    containerStyle:{
-        flex:1
-    },listContainer:{
-       margin:16,
-       backgroundColor:'#ffffff' 
-    },
-    imageStyle:{
-        height:80
-    }
-});
+
 
 const mapStateToProps = (state, ownProps) => {
     console.log("state",state)
@@ -57,3 +69,39 @@ mapDispatchToProps = (dispatch) => {
     }
 };
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryScreen);
+const styles=StyleSheet.create({
+    containerStyle:{
+        flex:1
+    },listContainer:{
+       margin:16,
+       backgroundColor:'#ffffff', 
+       borderRadius: 4,     
+       borderStyle: "solid",
+       borderWidth: 1,
+       borderColor: "#dbe0e8"
+    },
+    imageStyle:{
+        height:180,
+        margin:4,
+        borderRadius: 7.4,
+        backgroundColor:'#ffffff', 
+    },
+    listContentStyle:{
+        marginHorizontal:8  ,
+    },titleStyle:{
+        marginVertical:8 ,
+        fontSize: 16,
+        fontWeight: "600",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        color: "#58687e"
+
+    },tagsStyle:{
+        marginVertical:4 ,
+        fontSize: 16,
+        fontWeight: "600",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        color: "#58687e"
+    }
+});
